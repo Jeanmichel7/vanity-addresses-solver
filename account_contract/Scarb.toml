@@ -11,6 +11,6 @@ starknet = "2.6.3"
 
 
 [[target.starknet-contract]]
-sierra = true
-casm = true
-casm-add-pythonic-hints = true
+# sierra = true
+# casm = true
+# casm-add-pythonic-hints = true
