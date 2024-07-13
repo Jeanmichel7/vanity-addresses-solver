@@ -1,1 +1,3 @@
 will deployed at 0x02c728edaa05f488cf174f6743b680b5368cf70d001e89bb52f82c6cb2b6e4a5
+
+class hash: 0x05355f2f5acee9d9fa92ec4cc97fecbb47bef93480717cfd30d86553ab61f514
