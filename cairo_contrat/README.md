@@ -1,0 +1,12 @@
+scarb build
+
+cmd hash class:  
+starkli declare --watch ./target/dev/test_scarb_starkli_contract_my_contract.contract_class.json
+class hash: 0x04a7bc5855f74ff5b4db70c1c9d4acd24598022f246fbb168a4ee43a96d972b3
+
+cmd deployment: 
+starkli deploy --watch 0x04a7bc5855f74ff5b4db70c1c9d4acd24598022f246fbb168a4ee43a96d972b3 str:blabla 0x13224a4f73eb1df2e697fd1853e3191592540cce505946a8dfca4ef39ddb9d6
+
+contract deployed: 0x04c91b77218e8e99c8088bd4c69a96189342bb11d2fb3904af9c45980e429653
+
+
