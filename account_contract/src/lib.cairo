@@ -1,6 +1,5 @@
 use starknet::account::Call;
 
-
 #[starknet::interface]
 trait IAccount<T> {
     fn is_valid_signature(self: @T, hash: felt252, signature: Array<felt252>) -> felt252;
@@ -65,24 +64,24 @@ mod Account {
         }
     }
 
-    #[abi(per_item)]
+    #[external(v0)]
     #[generate_trait]
     impl ProtocolImpl of ProtocolTrait {
         fn __execute__(ref self: ContractState, calls: Array<Call>) -> Array<Span<felt252>> {
             self.only_protocol();
-            self.only_supported_tx_version(SUPPORTED_TX_VERSION::INVOKE);
+            self.only_supported_tx_version(1);
             self.execute_multiple_calls(calls)
         }
 
         fn __validate__(self: @ContractState, calls: Array<Call>) -> felt252 {
             self.only_protocol();
-            self.only_supported_tx_version(SUPPORTED_TX_VERSION::INVOKE);
+            self.only_supported_tx_version(1);
             self.validate_transaction()
         }
 
         fn __validate_declare__(self: @ContractState, class_hash: felt252) -> felt252 {
             self.only_protocol();
-            self.only_supported_tx_version(SUPPORTED_TX_VERSION::DECLARE);
+            self.only_supported_tx_version(2);
             self.validate_transaction()
         }
 
@@ -90,7 +89,7 @@ mod Account {
             self: @ContractState, class_hash: felt252, salt: felt252, public_key: felt252
         ) -> felt252 {
             self.only_protocol();
-            self.only_supported_tx_version(SUPPORTED_TX_VERSION::DEPLOY_ACCOUNT);
+            self.only_supported_tx_version(1);
             self.validate_transaction()
         }
     }
@@ -151,8 +150,9 @@ mod Account {
             let tx_info = get_tx_info().unbox();
             let version = tx_info.version;
             assert(
-                version == supported_tx_version || version == SIMULATE_TX_VERSION_OFFSET,
-                'Account: Unsupported tx version'
+                version == supported_tx_version || version == SIMULATE_TX_VERSION_OFFSET
+                    + supported_tx_version,
+                'Account: Unsupported tx vers'
             );
         }
     }
